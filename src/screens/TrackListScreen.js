@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Button } from 'react-native';
+import { View, StyleSheet, Text, Button } from 'react-native';
 
 const TrackListScreen = ({ navigation }) => {
   return (
@@ -12,5 +12,7 @@ const TrackListScreen = ({ navigation }) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({});
 
 export default TrackListScreen;

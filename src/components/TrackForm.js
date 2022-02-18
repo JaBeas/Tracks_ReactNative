@@ -9,7 +9,7 @@ const TrackForm = () => {
     state: { name, recording, locations },
     startRecording,
     stopRecording,
-    changeName,
+    changeName
   } = useContext(LocationContext);
   const [saveTrack] = useSaveTrack();
 
