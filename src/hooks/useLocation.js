@@ -4,32 +4,44 @@ import {
   requestPermissionsAsync,
   watchPositionAsync,
 } from 'expo-location';
-import { call } from 'react-native-reanimated';
 
-export default (callback) => {
+export default (shouldTrack, callback) => {
   const [err, setErr] = useState(null);
 
-  const startWatching = async () => {
-    try {
-      const { granted } = await requestPermissionsAsync();
-      if (granted) {
-        await watchPositionAsync(
-          {
-            accuracy: Accuracy.BestForNavigation,
-            timeInterval: 1000,
-            distanceInterval: 10,
-          },
-          callback
-        );
-      }
-    } catch (err) {
-      setErr(err);
-    }
-  };
-
   useEffect(() => {
-    startWatching();
-  }, []);
+    let subscriber;
+    const startWatching = async () => {
+      try {
+        const { granted } = await requestPermissionsAsync();
+        if (granted) {
+          subscriber = await watchPositionAsync(
+            {
+              accuracy: Accuracy.BestForNavigation,
+              timeInterval: 1000,
+              distanceInterval: 10,
+            },
+            callback
+          );
+        }
+      } catch (err) {
+        setErr(err);
+      }
+    };
+
+    if (shouldTrack) {
+      startWatching();
+    } else {
+      if (subscriber) {
+        subscriber.remove();
+      }
+      subscriber = null;
+    }
+    return () => {
+      if (subscriber) {
+        subscriber.remove();
+      }
+    };
+  }, [shouldTrack, callback]);
 
   return [err];
 };
