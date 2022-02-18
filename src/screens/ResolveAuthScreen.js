@@ -7,6 +7,7 @@ const ResolveAuthScreen = () => {
   useEffect(() => {
     tryLocalSignin();
   }, []);
+
   return null;
 };
 

@@ -28,11 +28,9 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
         autoCapitalize="none"
         autoCorrect={false}
       />
-
       {errorMessage ? (
         <Text style={styles.errorMessage}>{errorMessage}</Text>
       ) : null}
-
       <Spacer>
         <Button
           title={submitButtonText}
@@ -48,8 +46,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'red',
     marginLeft: 15,
-    marginTop: 15,
-  },
+    marginTop: 15
+  }
 });
 
 export default AuthForm;
